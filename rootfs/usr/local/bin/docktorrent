@@ -6,6 +6,8 @@ mkdir -p /rtorrent/{downloads,watch,.session,rutorrent/user-profiles,rutorrent/u
 # Change permission to ruTorrent's webserver user
 chown -R www-data:www-data /rtorrent
 
+chmod +x /etc/init.d/rtorrentd.sh
+
 # Override rTorrent settings
 [ "${IP}" ] && {
     sed -i '/^ip =/d' /root/.rtorrent.rc
@@ -40,10 +42,5 @@ chown -R www-data:www-data /rtorrent
     sed -i 's/^error_log = .*log/error_log = \/dev\/null/g' /etc/php5/fpm/php-fpm.conf
 }
 
-# Turn off authentication
-[ "${AUTH_OFF}" ] && {
-    sed -i '/allow 127.0.0.1/a allow '${AUTH_OFF}';' /etc/nginx/sites-enabled/default
-}
-
-# Use s6 to supervise all services
-exec /usr/bin/s6-svscan -t0 /service
+rm -f /rtorrent/.session/rtorrent.lock
+exec /usr/bin/supervisord -n

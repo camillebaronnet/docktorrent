@@ -79,8 +79,7 @@ RUN echo "deb http://www.deb-multimedia.org jessie main" >> /etc/apt/sources.lis
     deb-multimedia-keyring \
     ffmpeg
 
-# IMPORTANT: Change the default login/password of ruTorrent before build
-RUN htpasswd -cb /usr/share/nginx/html/rutorrent/.htpasswd docktorrent p@ssw0rd
+RUN apt-get install -y supervisor
 
 # Copy config files
 COPY config/nginx/default /etc/nginx/sites-available/default
@@ -88,13 +87,13 @@ COPY config/rtorrent/.rtorrent.rc /root/.rtorrent.rc
 COPY config/rutorrent/config.php /usr/share/nginx/html/rutorrent/conf/config.php
 
 # Add the s6 binaries fs layer
-ADD s6-1.1.3.2-musl-static.tar.xz /
+#ADD s6-1.1.3.2-musl-static.tar.xz /
 
 # Service directories and the wrapper script
 COPY rootfs /
 
 # Run the wrapper script first
-ENTRYPOINT ["/usr/local/bin/docktorrent"]
+CMD ["/usr/local/bin/docktorrent"]
 
 # Declare ports to expose
 EXPOSE 80 9527 45566
