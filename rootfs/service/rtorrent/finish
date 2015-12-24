@@ -1,7 +1,0 @@
-#!/bin/sh
-
-# Send SIGTERM to all remaining services if it's a `docker stop`
-[ -e /tmp/is-docker-stop ] && {
-    rm -f /tmp/is-docker-stop
-    s6-svscanctl -t /service
-}

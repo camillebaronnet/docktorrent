@@ -2,7 +2,7 @@ server {
 	listen 80;
 
 	root /usr/share/nginx/html/rutorrent;
-	index index.html index.php;
+	index index.php;
 
 	server_name "docktorrent";
 
@@ -19,8 +19,6 @@ server {
 
 	location ~ \.php$ {
 		fastcgi_split_path_info ^(.+\.php)(/.+)$;
-		# NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
-
 		fastcgi_pass unix:/var/run/php5-fpm.sock;
 		fastcgi_index index.php;
 		include fastcgi.conf;
