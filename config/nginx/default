@@ -2,7 +2,7 @@ server {
 	listen 80;
 
 	root /usr/share/nginx/html/rutorrent;
-	index index.php;
+	index index.html;
 
 	server_name "docktorrent";
 
