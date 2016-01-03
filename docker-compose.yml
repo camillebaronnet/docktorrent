@@ -1,10 +1,11 @@
 rutorrent:
     build: .
     ports:
-        - "80:80"
-        - "45566:45566"
-        - "9527:9527/udp"
-    dns: 8.8.8.8
+        - '80:80'
+        - '45566:45566'
+        - '9527:9527/udp'
+    dns:
+        - '8.8.8.8'
     environment:
         - UPLOAD_RATE=1024
     volumes:
